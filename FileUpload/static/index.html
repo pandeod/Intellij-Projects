@@ -1,0 +1,36 @@
+<html lang="en">
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <form id="upload-file" method="post" enctype="multipart/form-data">
+            <fieldset>
+                <label for="file">Select a file</label>
+                <input id="file" name="file" type="file">
+            </fieldset>
+            <fieldset>
+                <button id="upload-file-btn" type="button">Upload</button>
+            </fieldset>
+        </form>
+        <br><br>
+        <div id="output" style="color:blueviolet"></div>
+        <script>
+            $(document).ready(()=>{
+                $('#upload-file-btn').click(function() {
+                    var form_data = new FormData($('#upload-file')[0]);
+                    $.ajax({
+                        type: 'POST',
+                        url: '/uploadajax',
+                        data: form_data,
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        success: function(result) {
+                            $("#output").html(result.fname+"\n"+result.ctype);
+                        },
+                    });
+                });
+            })
+        </script>
+    </body>
+</html>
