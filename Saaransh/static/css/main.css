@@ -1,0 +1,53 @@
+.navbar {
+    min-height: 80px;
+}
+.offset-at-header{
+    height: 80px;
+    line-height: 80px;
+}
+
+.navbar-brand {
+    padding: 10px;
+    height: 80px;
+    line-height: 80px;
+}
+
+.navbar-toggle {
+    /* (80px - button height 34px) / 2 = 23px */
+    margin-top: 23px;
+    padding: 9px 10px !important;
+}
+
+@media (min-width: 768px) {
+    .navbar-nav > li > a {
+        /* (80px - line-height of 27px) / 2 = 26.5px */
+        padding-top: 26.5px;
+        padding-bottom: 26.5px;
+        line-height: 27px;
+    }
+
+    .offset-at-header{
+        min-height: 27px;
+    }
+}
+#textBox {
+    height:350px;
+    min-height:350px;
+    max-height:350px;
+    resize: none;
+}
+#summaryBox {
+    height:360px;
+    min-height:360px;
+    max-height:360px;
+    resize: none;
+}
+footer{
+    clear: both;
+    position: relative;
+    text-align: center;
+    padding-top: 4em;
+    z-index: 10;
+    height: 3em;
+    margin-top: -1em;
+}

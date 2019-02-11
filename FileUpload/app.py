@@ -1,7 +1,7 @@
 import os
 import random
 import string
-from flask import Flask, jsonify, request, url_for, flash
+from flask import Flask, jsonify, request, url_for, flash,render_template
 from werkzeug.utils import secure_filename, redirect
 
 UPLOAD_FOLDER = './upload/files'
@@ -13,7 +13,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/')
 def root():
-    return app.send_static_file('index.html')
+    return render_template('index.html')
 
 def random_generator():
     chars=string.ascii_uppercase+string.ascii_lowercase+string.digits
@@ -28,12 +28,11 @@ def upldfile():
         newfile_name=fname+file_extension
         newFile = secure_filename(newfile_name)
         file_val.save(os.path.join(app.config['UPLOAD_FOLDER'], newFile))
+
         data=dict()
         data['fname']=newFile
         data['ctype']=file_val.content_type
         return jsonify(data)
-
-
 
 @app.route('/predict')
 def predict():
@@ -46,27 +45,6 @@ def predict():
 
 def allowed_files(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-
-@app.route('/upload')
-def upload():
-    if request.method == 'POST':
-        if 'file' not in request.files:
-            flash('No file Part')
-            return "Error"
-
-    file = request.files['file']
-
-    if file.filename == '':
-        flash('No file Selected')
-        return "Error"
-
-    if file and allowed_files(file.filename):
-        filename = secure_filename(file.filename)
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        return "Success"
-
-    return ''
 
 
 if __name__ == '__main__':
