@@ -4,14 +4,11 @@ import random
 from werkzeug.utils import secure_filename
 from flask import Flask,render_template,request,jsonify
 
-UPLOAD_FOLDER = './upload/files'
-EXTRACT_FILE ='upload/extracted.txt'
+UPLOAD_FOLDER = './upload/files/'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'doc', 'docx'}
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['EXTRACT_FILE'] = EXTRACT_FILE
-
 
 @app.route('/')
 def root():
@@ -31,14 +28,17 @@ def split_file_name(filename):
     upload_file['file_extension']=file_extension
     return jsonify(upload_file)
 
-def read_txt(file):
-    f=open(file,'r')
+def read_txt(file_folder, filename):
+    path=os.path.join(file_folder,filename)
+    f=open(path,'r')
     res=f.read()
     f.close()
-    exf=open('./extracted.txt','w+')
+    extracted_file_name=secure_filename('out1.txt')
+    extracted_file_path=os.path.join(file_folder,extracted_file_name)
+    exf=open(extracted_file_path,'w+')
     exf.write(res)
     exf.close()
-    return True
+    return res
 
 def read_pdf(file):
 
@@ -55,24 +55,31 @@ def upldfile():
     if request.method == 'POST':
         file_val = request.files['file']
         fname, file_extension = os.path.splitext(file_val.filename)
-        fname=random_generator()
-        newfile_name=fname+file_extension
+        file_folder=random_generator()+'/'
+
+        new_file_path=os.path.join(app.config['UPLOAD_FOLDER'],file_folder)
+        directory = os.path.dirname(new_file_path)
+
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+
+        newfile_name='input'+file_extension
         newfilename = secure_filename(newfile_name)
-        new_path=os.path.join(app.config['UPLOAD_FOLDER'], newfilename)
+        new_path=os.path.join(directory, newfilename)
         file_val.save(new_path)
 
         if os.path.exists(new_path):
-            data['result']=newfilename
-            data['status']='200'
-            if(file_extension=='txt'):
-                read_txt(os.path.join(app.config['UPLOAD_FOLDER'], newfilename))
-            elif(file_extension=='pdf'):
+            if(file_extension=='.txt'):
+                content=read_txt(directory, newfilename)
+            elif(file_extension=='.pdf'):
                 content="pdf file uploaded"
-            elif(file_extension=='doc'):
+            elif(file_extension=='.doc'):
                 content="doc uploaded"
             else:
                 content="docx uploaded"
 
+            data['result']=file_folder
+            data['status']='200'
             return jsonify(data)
         else:
             data['result']="No File Uploaded"
@@ -86,8 +93,13 @@ def upldfile():
 @app.route('/requestsummary', methods=['POST'])
 def requestsummary():
     req=dict()
-    exf=open('./extracted.txt','r')
-    content=exf.read()
+    data=request.get_json()
+    folder=data['fname']
+    file_folder=folder+'out1.txt'
+    file_path=os.path.join(app.config['UPLOAD_FOLDER'],file_folder)
+    f=open(file_path,'r')
+    content=f.read()
+    f.close()
     req['summary']=content
     return jsonify(req)
 

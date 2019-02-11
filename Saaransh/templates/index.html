@@ -32,7 +32,7 @@
                         processData:false,
                         success: function(data){
                             if(data.status=='200'){
-                                console.log("File Uploaded Successfully status:"+data.status);
+                                console.log("File Uploaded Successfully status: "+data.result);
                                 uploadedFileName=data.result;
                                 alert("uploaded");
                             }else{
