@@ -19,8 +19,12 @@
         <!--End Generate DOC-->
         <script>
             $(document).ready(function(e){
-                let uploadedFileName='';
+                localStorage['uploadedFileName']=''
+
                 $("#upload_file").click(function(e){
+
+                    //TODO: add code to remove already added file
+
                     var form_data = new FormData($('#file_form')[0]);
                     e.preventDefault();
                     $.ajax({
@@ -33,7 +37,9 @@
                         success: function(data){
                             if(data.status=='200'){
                                 console.log("File Uploaded Successfully status: "+data.result);
-                                uploadedFileName=data.result;
+                                localStorage['uploadedFileName']=data.result;
+                                $('#upload_file').attr('disabled',true);
+                                $('#summarize_btn').attr('disabled',false);
                                 alert("uploaded");
                             }else{
                                 $('#file_form')[0].reset();
@@ -56,17 +62,47 @@
 
                 //modal text display
                 $("#summarize_btn").click(function(){
-                    var filename=uploadedFileName;
+                    var filename=localStorage['uploadedFileName'];
                     $.ajax({
                         type: 'POST',
                         url: '/requestsummary',
-                        data: {fname:filename},
+                        data: filename,
                         contentType: false,
                         cache: false,
                         processData:false,
                         success: function (data) {
                             var responseSummary=data['summary']
                             $("#summaryBox").text(responseSummary+"");
+                        },
+                        error: function (err) {
+                            console.log(err.status);
+                        }
+                    });
+                });
+
+                //remove modal display
+                $("#close-modal").click(function(){
+                    var filename=localStorage['uploadedFileName'];
+                    $.ajax({
+                        type: 'POST',
+                        url: '/closesummary',
+                        data: filename,
+                        contentType: false,
+                        cache: false,
+                        processData:false,
+                        success: function (data) {
+                            if(data.status=='200')
+                            {
+                                localStorage['uploadedFileName']='';
+                                console.log(data['response']);
+                                $("#summaryBox").text('');
+                                $("#file").val('');
+                                $("#custom-text").text('No file chosen');
+                                $('#upload_file').attr('disabled',true);
+                                $('#summarize_btn').attr('disabled',true);
+                            }
+                            else
+                                console.log('Failed to delete file')
                         },
                         error: function (err) {
                             console.log(err.status);
@@ -93,8 +129,8 @@
                         $("#custom-text").text('No file chosen');
                         return false;
                     }
-                    var btn = document.getElementById("upload_file");
-                    btn.disabled = false;
+                    $('#upload_file').attr('disabled',false);
+                    $('#summarize_btn').attr('disabled',true);
                     $('#custom-text').text(inputFileName.toString());
                 });
 
@@ -343,7 +379,7 @@
                 <!-- Trigger the modal with a button -->
                 <div class="row" style="margin-top:5%;">
                     <div class="col-sm-offset-2 col-sm-4">
-                        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" id="summarize_btn">Summarize</button>
+                        <button disabled type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" id="summarize_btn">Summarize</button>
                     </div>
                 </div>
 
@@ -375,7 +411,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                                <button id="close-modal" type="button" class="btn btn-info" data-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>

@@ -1,4 +1,5 @@
 import os
+import shutil
 import string
 import random
 from werkzeug.utils import secure_filename
@@ -93,14 +94,25 @@ def upldfile():
 @app.route('/requestsummary', methods=['POST'])
 def requestsummary():
     req=dict()
-    data=request.get_json()
-    folder=data['fname']
-    file_folder=folder+'out1.txt'
+    folder=request.get_data()
+    folder_str=folder.decode('utf-8')
+    file_folder=folder_str+'out1.txt'
     file_path=os.path.join(app.config['UPLOAD_FOLDER'],file_folder)
     f=open(file_path,'r')
     content=f.read()
     f.close()
     req['summary']=content
+    return jsonify(req)
+
+@app.route('/closesummary', methods=['POST'])
+def closesummary():
+    req=dict()
+    folder=request.get_data()
+    folder_str=folder.decode('utf-8')
+    file_path=os.path.join(app.config['UPLOAD_FOLDER'],folder_str)
+    shutil.rmtree(file_path,True)
+    req['response']='Success'
+    req['status']='200'
     return jsonify(req)
 
 
