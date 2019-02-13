@@ -2,6 +2,7 @@ import os
 import shutil
 import string
 import random
+import PyPDF2
 from werkzeug.utils import secure_filename
 from flask import Flask,render_template,request,jsonify
 
@@ -41,13 +42,37 @@ def read_txt(file_folder, filename):
     exf.close()
     return res
 
-def read_pdf(file):
+def read_pdf(file_folder, filename):
+    path=os.path.join(file_folder,filename)
+    pdfFileObj=open(path,'rb')
+    pdfReader=PyPDF2.PdfFileReader(pdfFileObj)
+    num_pages=pdfReader.numPages
+    count=0
+    text=''
+    while count<num_pages :
+        pageObj=pdfReader.getPage(count)
+        count+=1
+        text+=pageObj.extractText()
+    pdfFileObj.close()
 
-    return ''
+    extracted_file_name=secure_filename('out1.txt')
+    extracted_file_path=os.path.join(file_folder,extracted_file_name)
+    exf=open(extracted_file_path,'w+')
+    exf.write(text)
+    exf.close()
+    return text
 
-def read_doc(file):
-
-    return ''
+def read_doc(file_folder, filename):
+    path=os.path.join(file_folder,filename)
+    f=open(path,'r')
+    res=f.read()
+    f.close()
+    extracted_file_name=secure_filename('out1.txt')
+    extracted_file_path=os.path.join(file_folder,extracted_file_name)
+    exf=open(extracted_file_path,'w+')
+    exf.write(res)
+    exf.close()
+    return res
 
 
 @app.route('/uploadajax', methods=['POST'])
@@ -73,11 +98,11 @@ def upldfile():
             if(file_extension=='.txt'):
                 content=read_txt(directory, newfilename)
             elif(file_extension=='.pdf'):
-                content="pdf file uploaded"
+                content=read_pdf(directory, newfilename)
             elif(file_extension=='.doc'):
-                content="doc uploaded"
+                content=read_doc(directory, newfilename)
             else:
-                content="docx uploaded"
+                content=read_doc(directory, newfilename)
 
             data['result']=file_folder
             data['status']='200'
@@ -111,7 +136,7 @@ def closesummary():
     folder_str=folder.decode('utf-8')
     file_path=os.path.join(app.config['UPLOAD_FOLDER'],folder_str)
     shutil.rmtree(file_path,True)
-    req['response']='Success'
+    req['response']='success'
     req['status']='200'
     return jsonify(req)
 
