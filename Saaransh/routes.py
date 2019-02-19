@@ -1,10 +1,12 @@
 import os
+import random
 import shutil
 import string
-import random
+
 import PyPDF2
+import docx2txt
+from flask import Flask, render_template, request, jsonify
 from werkzeug.utils import secure_filename
-from flask import Flask,render_template,request,jsonify
 
 UPLOAD_FOLDER = './upload/files/'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'doc', 'docx'}
@@ -63,10 +65,18 @@ def read_pdf(file_folder, filename):
     return text
 
 def read_doc(file_folder, filename):
+    # path=os.path.join(file_folder,filename)
+    # res=docx2txt.process(path)
+    # extracted_file_name=secure_filename('out1.txt')
+    # extracted_file_path=os.path.join(file_folder,extracted_file_name)
+    # exf=open(extracted_file_path,'w+')
+    # exf.write(res)
+    # exf.close()
+    return True
+
+def read_docx(file_folder, filename):
     path=os.path.join(file_folder,filename)
-    f=open(path,'r')
-    res=f.read()
-    f.close()
+    res=docx2txt.process(path)
     extracted_file_name=secure_filename('out1.txt')
     extracted_file_path=os.path.join(file_folder,extracted_file_name)
     exf=open(extracted_file_path,'w+')
@@ -89,6 +99,9 @@ def upldfile():
         if not os.path.exists(directory):
             os.makedirs(directory)
 
+        if(file_extension=='.doc'):
+            file_extension='.docx'
+
         newfile_name='input'+file_extension
         newfilename = secure_filename(newfile_name)
         new_path=os.path.join(directory, newfilename)
@@ -102,7 +115,7 @@ def upldfile():
             elif(file_extension=='.doc'):
                 content=read_doc(directory, newfilename)
             else:
-                content=read_doc(directory, newfilename)
+                content=read_docx(directory, newfilename)
 
             data['result']=file_folder
             data['status']='200'
@@ -139,7 +152,6 @@ def closesummary():
     req['response']='success'
     req['status']='200'
     return jsonify(req)
-
 
 if __name__=='__main__':
     app.run(port=8000,debug=True)
