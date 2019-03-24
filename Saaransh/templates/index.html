@@ -167,7 +167,7 @@
 
 
                 document.getElementById("download_summary").onclick = function() {
-                    // when clicked the button
+                    //when clicked the button
                     var content = document.getElementById('summaryBox').value;
 
                     var documentType=document.getElementById('menuFileType');
@@ -183,6 +183,22 @@
                             break;
                         default : Export2Txt(content.toString());
                     }
+
+                    // var filename=localStorage['uploadedFileName'];
+                    // $.ajax({
+                    //     type: 'POST',
+                    //     url: '/getfile',
+                    //     data: filename,
+                    //     contentType: false,
+                    //     cache: false,
+                    //     processData:false,
+                    //     success: function (data) {
+                    //         console.log(data.status);
+                    //     },
+                    //     error: function (err) {
+                    //         console.log(err.status);
+                    //     }
+                    // });
                 }
 
                 function Export2Txt(text) {

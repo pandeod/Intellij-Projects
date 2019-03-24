@@ -2,11 +2,20 @@ import os
 import random
 import shutil
 import string
-
-import PyPDF2
-import docx2txt
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, send_file
 from werkzeug.utils import secure_filename
+from read_files import read_txt,read_doc,read_docx,read_pdf
+from textrank import pagerank,sentence_similarity,build_similarity_matrix
+from surface_feature import get_surface_score
+from nmf import get_grs_score
+from rank_sentences import get_top_list
+
+
+import re
+import nltk
+from nltk.corpus import stopwords
+# nltk.download('stopwords')
+# nltk.download('wordnet')
 
 UPLOAD_FOLDER = './upload/files/'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'doc', 'docx'}
@@ -32,58 +41,51 @@ def split_file_name(filename):
     upload_file['file_extension']=file_extension
     return jsonify(upload_file)
 
-def read_txt(file_folder, filename):
-    path=os.path.join(file_folder,filename)
-    f=open(path,'r')
-    res=f.read()
-    f.close()
-    extracted_file_name=secure_filename('out1.txt')
-    extracted_file_path=os.path.join(file_folder,extracted_file_name)
-    exf=open(extracted_file_path,'w+')
-    exf.write(res)
-    exf.close()
-    return res
+def summary_nmf_method(text):
 
-def read_pdf(file_folder, filename):
-    path=os.path.join(file_folder,filename)
-    pdfFileObj=open(path,'rb')
-    pdfReader=PyPDF2.PdfFileReader(pdfFileObj)
-    num_pages=pdfReader.numPages
-    count=0
-    text=''
-    while count<num_pages :
-        pageObj=pdfReader.getPage(count)
-        count+=1
-        text+=pageObj.extractText()
-    pdfFileObj.close()
+    lemma = nltk.wordnet.WordNetLemmatizer()
 
-    extracted_file_name=secure_filename('out1.txt')
-    extracted_file_path=os.path.join(file_folder,extracted_file_name)
-    exf=open(extracted_file_path,'w+')
-    exf.write(text)
-    exf.close()
-    return text
+    sent_list=re.split('\.|\?|\!',text)
+    sent_list.pop()
+    docs=sent_list.copy()
 
-def read_doc(file_folder, filename):
-    # path=os.path.join(file_folder,filename)
-    # res=docx2txt.process(path)
-    # extracted_file_name=secure_filename('out1.txt')
-    # extracted_file_path=os.path.join(file_folder,extracted_file_name)
-    # exf=open(extracted_file_path,'w+')
-    # exf.write(res)
-    # exf.close()
-    return True
+    n=len(docs)
 
-def read_docx(file_folder, filename):
-    path=os.path.join(file_folder,filename)
-    res=docx2txt.process(path)
-    extracted_file_name=secure_filename('out1.txt')
-    extracted_file_path=os.path.join(file_folder,extracted_file_name)
-    exf=open(extracted_file_path,'w+')
-    exf.write(res)
-    exf.close()
-    return res
+    for i in range(n):
+        if(i==0):
+            docs[i]=docs[i].replace(u'\ufeff','')
+            sent_list[i]=sent_list[i].replace(u'\ufeff','')
+        docs[i]=" ".join(docs[i].split()).lower()
+        sent_list[i]=" ".join(sent_list[i].split())
 
+    stop_words = set(stopwords.words('english'))
+
+    for i in range(n):
+        sentence=''
+        for w in docs[i].split():
+            if w not in stop_words:
+                sentence+=lemma.lemmatize(w)+' '
+        docs[i]=sentence
+
+    GRS_sen=get_grs_score(docs)
+    surface_score=get_surface_score(docs)
+    p=pagerank(docs)
+
+    total_score=list()
+
+    for i in range(n):
+        total_score.append(GRS_sen[i]+surface_score[i]+p[i])
+
+    top_list=get_top_list(total_score)
+
+    summary_final=''
+    i=0
+    while(i<n):
+        if total_score[i] in top_list:
+            summary_final+=sent_list[i]+'\n'
+        i+=1
+
+    return summary_final
 
 @app.route('/uploadajax', methods=['POST'])
 def upldfile():
@@ -139,8 +141,20 @@ def requestsummary():
     f=open(file_path,'r')
     content=f.read()
     f.close()
-    req['summary']=content
+    sents=summary_nmf_method(content)
+    req['summary']=sents
     return jsonify(req)
+
+@app.route('/getfile', methods=['POST'])
+def getfile():
+    folder=request.get_data()
+    folder_str=folder.decode('utf-8')
+    file_folder=folder_str+'out1.txt'
+    file_path=os.path.join(app.config['UPLOAD_FOLDER'],file_folder)
+    try:
+        return send_file(file_path,attachment_filename='out1.txt',as_attachment=True)
+    except Exception as e:
+        return str(e)
 
 @app.route('/closesummary', methods=['POST'])
 def closesummary():

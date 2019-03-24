@@ -1,8 +1,10 @@
 import os
 import random
 import string
-from flask import Flask, jsonify, request, url_for, flash,render_template
-from werkzeug.utils import secure_filename, redirect
+
+
+from flask import Flask, jsonify, request, render_template
+from werkzeug.utils import secure_filename
 
 UPLOAD_FOLDER = './upload/files'
 ALLOWED_EXTENSIONS = {'jpg', 'pdf', 'png', 'doc', 'txt'}
