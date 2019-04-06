@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/main.css')}}">
         <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/upload-button.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/switch-button.css')}}">
 
         <script src="{{url_for('static', filename='javascript/jquery/3.3.1/jquery.min.js')}}"></script>
         <script src="{{url_for('static', filename='javascript/bootstrap/3.3.7/js/bootstrap.min.js')}}"></script>
@@ -139,6 +140,19 @@
                             console.log(err.status);
                         }
                     });
+                });
+                
+                $("#switch-button").change(function () {
+                    if($("#switch-button").prop("checked")==true)
+                    {
+                        $('#upload_file').attr('disabled',true);
+                        $('#summarize_btn').attr('disabled',false);
+                    }
+                    else
+                    {
+                        $('#upload_file').attr('disabled',false);
+                        $('#summarize_btn').attr('disabled',true);
+                    }
                 });
 
                 //file type validation
@@ -365,7 +379,13 @@
 
             <div  class="col-sm-5 " style="margin:2%;">
                 <div class="form-group">
-                    <h3>Copy & Paste your text here..</h3>
+                    <h3>Copy & Paste your text here..
+                        <label class="switch">
+                            <input id="switch-button" type="checkbox" checked>
+                            <span class="slider round"></span>
+                        </label>
+                        <span style="color:#ff0000">Uncheck to upload file</span>
+                    </h3>
                     <textarea class="form-control" id="textBox"></textarea>
                 </div>
             </div>

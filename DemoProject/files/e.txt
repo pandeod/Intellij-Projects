@@ -1,0 +1,7 @@
+Welcome to the second episode of the SDS Podcast, which is all about Machine Learning. Here we go!
+Today's guest is Hadelin de Ponteves, Machine Learning Expert and Entrepreneur.
+Machine Learning (ML) is one of the biggest fields of Data Science.
+In fact, it's grown so quickly over the past decade that now you are almost expected to know some level of Machine Learning to call yourself a Data Scientist.
+Hadelin is a prime example of a person who is expert in this field and has a proven track record of creating value for the World through his knowledge of ML. He holds a Masters in Machine Learning and can his skills have been forged through real experience at Canal+ and Google.
+If you've never practiced machine learning before, this episode is a great place to get started and dip your toes in the water. And even if you're an avid ML user, you'll get a very interesting take from somebody who has vast accomplishments in this field.
+Plus, have you ever met a person who sleeps 3 hours a day (for 3 years now!), builds businesses and writes futuristic novels? No? You have to meet Hadelin!

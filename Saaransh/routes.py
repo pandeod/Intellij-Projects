@@ -9,6 +9,7 @@ from textrank import pagerank,sentence_similarity,build_similarity_matrix
 from surface_feature import get_surface_score
 from nmf import get_grs_score
 from rank_sentences import get_top_list
+from lexrank import STOPWORDS, LexRank
 
 
 import re
@@ -71,19 +72,26 @@ def summary_nmf_method(text):
     surface_score=get_surface_score(docs)
     p=pagerank(docs)
 
-    total_score=list()
+    lxr = LexRank(docs)
+    scores_cont = lxr.rank_sentences(docs,threshold=None,fast_power_method=True)
+
+    total_score=[]
 
     for i in range(n):
-        total_score.append(GRS_sen[i]+surface_score[i]+p[i])
+        t_sum=100*float(GRS_sen[i])+100*float(surface_score[i])+100*float(p[i])+100*float(scores_cont[i])
+        total_score.append(t_sum)
 
     top_list=get_top_list(total_score)
 
-    summary_final=''
+    summary_final=''+str(len(top_list))+'\n'
     i=0
     while(i<n):
         if total_score[i] in top_list:
-            summary_final+=sent_list[i]+'\n'
+            summary_final+=str(total_score[i])+'\n\n'
         i+=1
+
+    # for i in range(n):
+    #     summary_final+=str(GRS_sen[i])+'\n'+str(surface_score[i])+'\n'+str(p[i])+'\n'+str(scores_cont[i])+'\n'+str(total_score[i])+'\n\n\n'
 
     return summary_final
 
