@@ -2,20 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="350e2358-1941-4488-8b2c-a3d5850d4abf" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/files/d.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/files/g.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nmf.py" beforeDir="false" afterPath="$PROJECT_DIR$/nmf.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rank_sentences.py" beforeDir="false" afterPath="$PROJECT_DIR$/rank_sentences.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/surface_feature.py" beforeDir="false" afterPath="$PROJECT_DIR$/surface_feature.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/textrank.py" beforeDir="false" afterPath="$PROJECT_DIR$/textrank.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Saaransh/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Saaransh/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Saaransh/nmf.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Saaransh/nmf.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Saaransh/rank_sentences.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Saaransh/rank_sentences.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Saaransh/read_files.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Saaransh/read_files.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Saaransh/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Saaransh/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Saaransh/surface_feature.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Saaransh/surface_feature.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Saaransh/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Saaransh/templates/index.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />

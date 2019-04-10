@@ -94,11 +94,15 @@
                 //modal text display
                 $("#summarize_btn").click(function(){
                     var filename=localStorage['uploadedFileName'];
+                    var length=$('#inputLength').val()
+                    if(length == null)
+                        length=1;
+                    d={'fname':filename,'sumLen':length}
                     $.ajax({
                         type: 'POST',
                         url: '/requestsummary',
-                        data: filename,
-                        contentType: false,
+                        data: JSON.stringify(d),
+                        contentType: 'application/json;charset=UTF-8',
                         cache: false,
                         processData:false,
                         success: function (data) {
@@ -436,7 +440,7 @@
                 <h3 ></h3>
                 <div style="margin-top:5%;" class="form-group">
                     <label for="inputLength">Select sentence limit for your summary ...</label>
-                    <input type="number" min="1" class="form-control" id="inputLength" placeholder="No. of sentences">
+                    <input type="number" value="1" min="1" class="form-control" id="inputLength" placeholder="No. of sentences">
                 </div>
 
                 <!-- Trigger the modal with a button -->

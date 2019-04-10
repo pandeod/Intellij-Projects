@@ -4,7 +4,7 @@ import shutil
 import string
 from flask import Flask, render_template, request, jsonify, send_file
 from werkzeug.utils import secure_filename
-from read_files import read_txt,read_doc,read_docx,read_pdf
+from read_files import read_txt,read_docx,read_pdf
 from textrank import pagerank,sentence_similarity,build_similarity_matrix
 from surface_feature import get_surface_score
 from nmf import get_grs_score
@@ -14,6 +14,8 @@ import numpy as np
 import re
 import nltk
 from nltk.corpus import stopwords
+import logging
+import json
 # nltk.download('stopwords')
 # nltk.download('wordnet')
 
@@ -41,7 +43,7 @@ def split_file_name(filename):
     upload_file['file_extension']=file_extension
     return jsonify(upload_file)
 
-def summary_nmf_method(text):
+def summary_nmf_method(text,sumLen):
 
     lemma = nltk.wordnet.WordNetLemmatizer()
 
@@ -85,7 +87,7 @@ def summary_nmf_method(text):
         total_score.append(t_sum)
 
     copy_score = total_score.copy()
-    top_list = get_top_list(copy_score)
+    top_list = get_top_list(copy_score,sumLen)
 
     summary_final=''
 
@@ -139,14 +141,17 @@ def upldfile():
 @app.route('/requestsummary', methods=['POST'])
 def requestsummary():
     req=dict()
-    folder=request.get_data()
-    folder_str=folder.decode('utf-8')
+    folder_str=request.json['fname']
+    sumLen=request.json['sumLen']
+
+    logging.warning(sumLen)
+
     file_folder=folder_str+'out1.txt'
     file_path=os.path.join(app.config['UPLOAD_FOLDER'],file_folder)
     f=open(file_path,'r')
     content=f.read()
     f.close()
-    sents=summary_nmf_method(content)
+    sents=summary_nmf_method(content,sumLen)
     req['summary']=sents
     return jsonify(req)
 

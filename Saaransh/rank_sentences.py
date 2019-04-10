@@ -1,8 +1,9 @@
 import numpy as np
 
-def get_top_list(score):
-    n = len(score)
+def get_top_list(score,sumLen):
+
     s=np.array(score)
+    n = len(score)
 
     # for i in range(n):
     #     # Last i elements are already in place
@@ -13,7 +14,12 @@ def get_top_list(score):
     x=np.sort(s)
     top_list=list()
 
-    for i in range(int(3*n/5)):
+    sl=int(sumLen)
+
+    if(sl>n):
+        sl=n
+
+    for i in range(sl):
         top_list.append(x[i])
 
     return top_list
