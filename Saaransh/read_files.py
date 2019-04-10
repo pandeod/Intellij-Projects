@@ -1,6 +1,7 @@
 import os
 import PyPDF2
 import docx2txt
+import re
 from werkzeug.utils import secure_filename
 
 
@@ -14,6 +15,7 @@ def read_txt(file_folder, filename):
     exf=open(extracted_file_path,'w+')
     exf.write(res)
     exf.close()
+    n=get_total_sentences(res)
     return res
 
 def read_pdf(file_folder, filename):
@@ -34,17 +36,8 @@ def read_pdf(file_folder, filename):
     exf=open(extracted_file_path,'w+')
     exf.write(text)
     exf.close()
-    return text
-
-def read_doc(file_folder, filename):
-    # path=os.path.join(file_folder,filename)
-    # res=docx2txt.process(path)
-    # extracted_file_name=secure_filename('out1.txt')
-    # extracted_file_path=os.path.join(file_folder,extracted_file_name)
-    # exf=open(extracted_file_path,'w+')
-    # exf.write(res)
-    # exf.close()
-    return True
+    n=get_total_sentences(text)
+    return n
 
 def read_docx(file_folder, filename):
     path=os.path.join(file_folder,filename)
@@ -54,4 +47,9 @@ def read_docx(file_folder, filename):
     exf=open(extracted_file_path,'w+')
     exf.write(res)
     exf.close()
-    return res
+    n=get_total_sentences(res)
+    return n
+
+def get_total_sentences(self):
+    s=re.split('\.|\?|\!',self)
+    return len(s)-1

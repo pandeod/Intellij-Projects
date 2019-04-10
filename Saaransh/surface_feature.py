@@ -1,33 +1,35 @@
+import numpy as np
+
 def get_surface_score(docs):
     n=len(docs)
-    sent_len=list()
 
-    position_score=list()
-
+    p=list()
     for i in range(n):
-        position_score.append(1/(i+1))
+        p.append(1/(i+1))
 
+    position_score=np.array(p)
+
+    s=list()
     for i in range(n):
-        sent_len.append(len(docs[i].split(' ')))
+        s.append(len(docs[i].split(' ')))
 
-    total_len=0
-    for x in range(n):
-        total_len+=sent_len[x]
+    sent_len=np.array(s)
 
+    total_len=sent_len.sum()
     avg_len=total_len/n
 
-    length_score=list()
+    ls=list()
 
-    i=0
-    while(i<n):
-        if(sent_len[i]<=avg_len):
-            length_score.append(0)
-        else:
-            length_score.append((sent_len[i]-avg_len)/avg_len)
-        i+=1
-
-    surface_score=list()
     for i in range(n):
-        surface_score.append(position_score[i]+length_score[i])
+        if(sent_len[i]<=avg_len):
+            ls.append(0)
+        else:
+            ls.append((sent_len[i]-avg_len)/avg_len)
+
+    length_score=np.array(ls)
+
+    surface_score=position_score+length_score
+    maxSurface=surface_score.max()
+    surface_score=(100*surface_score)/maxSurface
 
     return surface_score

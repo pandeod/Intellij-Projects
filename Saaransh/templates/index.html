@@ -142,18 +142,18 @@
                     });
                 });
                 
-                $("#switch-button").change(function () {
-                    if($("#switch-button").prop("checked")==true)
-                    {
-                        $('#upload_file').attr('disabled',true);
-                        $('#summarize_btn').attr('disabled',false);
-                    }
-                    else
-                    {
-                        $('#upload_file').attr('disabled',false);
-                        $('#summarize_btn').attr('disabled',true);
-                    }
-                });
+                // $("#switch-button").change(function () {
+                //     if($("#switch-button").prop("checked")==true)
+                //     {
+                //         $('#upload_file').attr('disabled',true);
+                //         $('#summarize_btn').attr('disabled',false);
+                //     }
+                //     else
+                //     {
+                //         $('#upload_file').attr('disabled',false);
+                //         $('#summarize_btn').attr('disabled',true);
+                //     }
+                // });
 
                 //file type validation
                 $("#file").change(function() {
@@ -161,11 +161,11 @@
                     var inputFileType = file.type;
                     var inputFileName = file.name;
                     var fileSize = parseFloat(file.size / (1024*1024)).toFixed(2);
-                    var match= ["application/pdf","application/msword","application/vnd.openxmlformats-officedocument.wordprocessingml.document","text/plain"];
-                    if(!((inputFileType==match[0]) || (inputFileType==match[1]) || (inputFileType==match[2]) || (inputFileType==match[3]))){
+                    var match= ["application/pdf","application/vnd.openxmlformats-officedocument.wordprocessingml.document","text/plain"];
+                    if(!((inputFileType==match[0]) || (inputFileType==match[1]) || (inputFileType==match[2]))){
                         alert('Please select a valid file format');
                         $("#file").val('');
-                        $("#custom-text").text('  Choose File  ');
+                        $("#custom-text").text('Choose File');
                         return false;
                     }
                     if(fileSize>10){
@@ -379,12 +379,7 @@
 
             <div  class="col-sm-5 " style="margin:2%;">
                 <div class="form-group">
-                    <h3>Copy & Paste your text here..
-                        <label class="switch">
-                            <input id="switch-button" type="checkbox" checked>
-                            <span class="slider round"></span>
-                        </label>
-                        <span style="color:#ff0000">Uncheck to upload file</span>
+                    <h3>Copy & Paste your text here...
                     </h3>
                     <textarea class="form-control" id="textBox"></textarea>
                 </div>
@@ -435,18 +430,14 @@
                         </div>
                     </div>
                 </form>
-                <span class="text-danger">*Valid formats are doc,docx,pdf,txt </span><br/>
+                <span class="text-danger">*Valid formats are txt,pdf,docx </span><br/>
                 <span class="text-danger">*Max file size allowed is 10MB </span>
 
-                <h3 style="margin-top:5%;">Select word limit for your summary ...</h3>
-                <div class="dropdown">
-                    <select class="btn btn-default dropdown-toggle" id="menuSummaryLength" data-toggle="dropdown">
-                        <option role="menuitem">1/3rd of document </option>
-                        <option role="menuitem">1/4th of document</option>
-                        <option role="menuitem">Random</option>
-                    </select>
+                <h3 ></h3>
+                <div style="margin-top:5%;" class="form-group">
+                    <label for="inputLength">Select sentence limit for your summary ...</label>
+                    <input type="number" min="1" class="form-control" id="inputLength" placeholder="No. of sentences">
                 </div>
-
 
                 <!-- Trigger the modal with a button -->
                 <div class="row" style="margin-top:5%;">

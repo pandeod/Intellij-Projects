@@ -1,5 +1,7 @@
+import logging
 import numpy as np
 from nltk.cluster.util import cosine_distance
+
 np.seterr(divide='ignore', invalid='ignore')
 
 def sentence_similarity(s1, s2):
@@ -17,8 +19,8 @@ def sentence_similarity(s1, s2):
     # build the vector for the second sentence
     for w in sent2:
         vector2[all_words.index(w)] += 1
-
-    return 1 - cosine_distance(vector1, vector2)
+    with np.errstate(divide='ignore',invalid='ignore'):
+        return 1 - cosine_distance(vector1, vector2)
 
 
 def build_similarity_matrix(sentences):
@@ -41,6 +43,9 @@ def build_similarity_matrix(sentences):
 
 def pagerank(docs, eps=0.0001, d=0.85):
     A=build_similarity_matrix(docs)
+
+    logging.warning('Matrix Build Complete')
+
     P = np.ones(len(A)) / len(A)
     while True:
         new_P = np.ones(len(A)) * (1 - d) / len(A) + d * A.T.dot(P)

@@ -35,9 +35,13 @@ def get_grs_score(docs):
         for j in range(H_col):
             summation_H+=H[i][j]
 
-    GRS_sen=list()
+    g=list()
 
     for j in range(H_col):
-        GRS_sen.append(grs_sent_j(j,H_row,H_col,summation_H,H))
+        g.append(grs_sent_j(j,H_row,H_col,summation_H,H))
+
+    GRS_sen=np.array(g)
+    maxGRS=GRS_sen.max()
+    GRS_sen=(100*GRS_sen)/maxGRS
 
     return GRS_sen

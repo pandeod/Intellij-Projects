@@ -10,8 +10,7 @@ from surface_feature import get_surface_score
 from nmf import get_grs_score
 from rank_sentences import get_top_list
 from lexrank import STOPWORDS, LexRank
-
-
+import numpy as np
 import re
 import nltk
 from nltk.corpus import stopwords
@@ -19,7 +18,7 @@ from nltk.corpus import stopwords
 # nltk.download('wordnet')
 
 UPLOAD_FOLDER = './upload/files/'
-ALLOWED_EXTENSIONS = {'txt', 'pdf', 'doc', 'docx'}
+ALLOWED_EXTENSIONS = {'txt', 'pdf','docx'}
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -70,28 +69,29 @@ def summary_nmf_method(text):
 
     GRS_sen=get_grs_score(docs)
     surface_score=get_surface_score(docs)
-    p=pagerank(docs)
+    #p=pagerank(docs)
 
     lxr = LexRank(docs)
-    scores_cont = lxr.rank_sentences(docs,threshold=None,fast_power_method=True)
+    lx = lxr.rank_sentences(docs, threshold=None, fast_power_method=True)
+
+    lxr_score=np.array(lx)
+    maxLex=lxr_score.max()
+    lxr_score=(100*lxr_score)/maxLex
 
     total_score=[]
 
     for i in range(n):
-        t_sum=100*float(GRS_sen[i])+100*float(surface_score[i])+100*float(p[i])+100*float(scores_cont[i])
+        t_sum = float(GRS_sen[i]) + float(surface_score[i]) + float(lxr_score[i])
         total_score.append(t_sum)
 
-    top_list=get_top_list(total_score)
+    copy_score = total_score.copy()
+    top_list = get_top_list(copy_score)
 
-    summary_final=''+str(len(top_list))+'\n'
-    i=0
-    while(i<n):
+    summary_final=''
+
+    for i in range(n):
         if total_score[i] in top_list:
-            summary_final+=str(total_score[i])+'\n\n'
-        i+=1
-
-    # for i in range(n):
-    #     summary_final+=str(GRS_sen[i])+'\n'+str(surface_score[i])+'\n'+str(p[i])+'\n'+str(scores_cont[i])+'\n'+str(total_score[i])+'\n\n\n'
+            summary_final+=sent_list[i]+' '
 
     return summary_final
 
@@ -109,9 +109,6 @@ def upldfile():
         if not os.path.exists(directory):
             os.makedirs(directory)
 
-        if(file_extension=='.doc'):
-            file_extension='.docx'
-
         newfile_name='input'+file_extension
         newfilename = secure_filename(newfile_name)
         new_path=os.path.join(directory, newfilename)
@@ -119,20 +116,20 @@ def upldfile():
 
         if os.path.exists(new_path):
             if(file_extension=='.txt'):
-                content=read_txt(directory, newfilename)
+                length=read_txt(directory, newfilename)
             elif(file_extension=='.pdf'):
-                content=read_pdf(directory, newfilename)
-            elif(file_extension=='.doc'):
-                content=read_doc(directory, newfilename)
+                length=read_pdf(directory, newfilename)
             else:
-                content=read_docx(directory, newfilename)
+                length=read_docx(directory, newfilename)
 
             data['result']=file_folder
+            data['length']=length
             data['status']='200'
             return jsonify(data)
         else:
             data['result']="No File Uploaded"
             data['status']='404'
+            data['length']='0'
             return jsonify(data)
     else :
         data['result']="Error In Request"
@@ -176,4 +173,4 @@ def closesummary():
     return jsonify(req)
 
 if __name__=='__main__':
-    app.run(port=8000,debug=True)
+    app.run(port=5000,debug=True)
