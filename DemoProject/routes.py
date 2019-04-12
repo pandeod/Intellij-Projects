@@ -18,7 +18,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def root():
-    f = open('files/g.txt', 'r', encoding='utf-8', errors='ignore')
+    f = open('files/a.txt', 'r', encoding='utf-8', errors='ignore')
     text = f.read()
 
     logging.warning('File Read Successfull')

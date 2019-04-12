@@ -35,11 +35,12 @@
                         success: function(data){
                             if(data.status=='200'){
                                 console.log("File Uploaded Successfully status: "+data.result);
+                                console.log("No. of sentences in file : "+data.length);
                                 localStorage['uploadedFileName']=data.result;
                                 $('#upload_file').attr('disabled',true);
                                 $('#summarize_btn').attr('disabled',false);
                                 $('#cancel-selected-file').show();
-                                alert("uploaded");
+                                confirm("Your file has been uploaded..\nNo. of Sentences detected : "+data.length);
                             }else{
                                 $('#file_form')[0].reset();
                                 $("#custom-text").text('Choose File');
@@ -94,7 +95,7 @@
                 //modal text display
                 $("#summarize_btn").click(function(){
                     var filename=localStorage['uploadedFileName'];
-                    var length=$('#inputLength').val()
+                    var length=$('#inputLength').val();
                     if(length == null)
                         length=1;
                     d={'fname':filename,'sumLen':length}
@@ -446,42 +447,41 @@
                 <!-- Trigger the modal with a button -->
                 <div class="row" style="margin-top:5%;">
                     <div class="col-sm-offset-2 col-sm-4">
-                        <button disabled type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" id="summarize_btn">Summarize</button>
+                        <button disabled type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#summary-modal" id="summarize_btn">Summarize</button>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
 
-
-                <!-- Modal -->
-                <div class="modal fade" id="myModal" role="dialog">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Your Summary</h4>
+    <!-- Modal -->
+    <div class="modal fade" id="summary-modal" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Your Summary</h4>
+                </div>
+                <div class="modal-body" style="background-color:white">
+                    <div class="row" style="margin:10px;">
+                        <div class="col-sm-7" style="padding: 20px;height:400px;">
+                            <textarea class="form-control" style=" border: 1px solid black; border-radius: 10px;background-color: white" id="summaryBox"></textarea>
+                        </div>
+                        <div class="col-sm-5" style="padding: 50px;height:400px;">
+                            <h4 style="margin-top:10%;">Save summary as ...</h4>
+                            <div class="dropdown" style="margin-top:10%;">
+                                <select class="btn btn-default dropdown-toggle" id="menuFileType" data-toggle="dropdown">
+                                    <option value="txt" selected role="menuitem">txt</option>
+                                    <option value="pdf" role="menuitem">pdf</option>
+                                    <option value="doc" role="menuitem">doc</option>
+                                </select>
                             </div>
-                            <div class="modal-body" style="background-color:white">
-                                <div class="row" style="margin:10px;">
-                                    <div class="col-sm-7" style="padding: 20px;height:400px;">
-                                        <textarea class="form-control" style=" border: 1px solid black; border-radius: 10px;background-color: white" id="summaryBox"></textarea>
-                                    </div>
-                                    <div class="col-sm-5" style="padding: 50px;height:400px;">
-                                        <h4 style="margin-top:10%;">Save summary as ...</h4>
-                                        <div class="dropdown" style="margin-top:10%;">
-                                            <select class="btn btn-default dropdown-toggle" id="menuFileType" data-toggle="dropdown">
-                                                <option value="txt" selected role="menuitem">txt</option>
-                                                <option value="pdf" role="menuitem">pdf</option>
-                                                <option value="doc" role="menuitem">doc</option>
-                                            </select>
-                                        </div>
-                                        <button type="button" style="margin-top:10%;width:100px;" class="btn btn-info" id="download_summary">Download</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button id="close-modal" type="button" class="btn btn-info" data-dismiss="modal">Close</button>
-                            </div>
+                            <button type="button" style="margin-top:10%;width:100px;" class="btn btn-info" id="download_summary">Download</button>
                         </div>
                     </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="close-modal" type="button" class="btn btn-info" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>

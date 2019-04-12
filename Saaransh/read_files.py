@@ -7,16 +7,16 @@ from werkzeug.utils import secure_filename
 
 def read_txt(file_folder, filename):
     path=os.path.join(file_folder,filename)
-    f=open(path,'r')
+    f=open(path,'r',encoding='utf-8',errors='ignore')
     res=f.read()
     f.close()
     extracted_file_name=secure_filename('out1.txt')
     extracted_file_path=os.path.join(file_folder,extracted_file_name)
-    exf=open(extracted_file_path,'w+')
+    exf=open(extracted_file_path,'w+',encoding='utf-8',errors='ignore')
     exf.write(res)
     exf.close()
     n=get_total_sentences(res)
-    return res
+    return n
 
 def read_pdf(file_folder, filename):
     path=os.path.join(file_folder,filename)
@@ -33,7 +33,7 @@ def read_pdf(file_folder, filename):
 
     extracted_file_name=secure_filename('out1.txt')
     extracted_file_path=os.path.join(file_folder,extracted_file_name)
-    exf=open(extracted_file_path,'w+')
+    exf=open(extracted_file_path,'w+',encoding='utf-8',errors='ignore')
     exf.write(text)
     exf.close()
     n=get_total_sentences(text)
@@ -44,7 +44,7 @@ def read_docx(file_folder, filename):
     res=docx2txt.process(path)
     extracted_file_name=secure_filename('out1.txt')
     extracted_file_path=os.path.join(file_folder,extracted_file_name)
-    exf=open(extracted_file_path,'w+')
+    exf=open(extracted_file_path,'w+',encoding='utf-8',errors='ignore')
     exf.write(res)
     exf.close()
     n=get_total_sentences(res)
