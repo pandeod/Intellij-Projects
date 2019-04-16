@@ -17,6 +17,9 @@ from nltk.corpus import stopwords
 import logging
 import json
 
+from timeit import default_timer as timer
+
+
 # nltk.download('stopwords')
 # nltk.download('wordnet')
 
@@ -25,7 +28,6 @@ ALLOWED_EXTENSIONS = {'txt', 'pdf', 'docx'}
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
 
 @app.route('/')
 def root():
@@ -160,6 +162,7 @@ def upldfile():
 
 @app.route('/requestsummary', methods=['POST'])
 def requestsummary():
+    start=timer()
     req = dict()
     folder_str = request.json['fname']
     sumLen = request.json['sumLen']
@@ -172,6 +175,11 @@ def requestsummary():
     content = f.read()
     f.close()
     sents = summary_nmf_method(content, sumLen)
+
+    t=timer()-start
+
+    sents="Time required : "+str(t)+" seconds. \n"+sents
+
     req['summary'] = sents
     return jsonify(req)
 
