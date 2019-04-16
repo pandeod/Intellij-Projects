@@ -5,8 +5,12 @@ from nmf import get_grs_score
 from rank_sentences import get_top_list
 from lexrank import STOPWORDS, LexRank
 import re
-from nltk.stem import WordNetLemmatizer
+import nltk
+# from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords
+from nltk.tokenize import sent_tokenize
+from timeit import default_timer as timer
+
 import logging
 import numpy as np
 
@@ -18,19 +22,24 @@ app = Flask(__name__)
 
 @app.route('/')
 def root():
-    f = open('files/a.txt', 'r', encoding='utf-8', errors='ignore')
+    f = open('files/g.txt', 'r', encoding='utf-8', errors='ignore')
     text = f.read()
 
     logging.warning('File Read Successfull')
-
+    start=timer()
     summary = summary_nmf_method(text)
-    return '' + summary
+    t=timer()-start
+
+    return 'Time Required : '+str(t)+' seconds '+ summary
 
 
 def summary_nmf_method(text):
-    lemma = WordNetLemmatizer()
-    sent_list = re.split('\.|\?|\!', text)
-    sent_list.pop()
+    #lemma = WordNetLemmatizer()
+    lemma = nltk.wordnet.WordNetLemmatizer()
+    # sent_list = re.split('\.|\?|\!', text)
+    # sent_list.pop()
+
+    sent_list=sent_tokenize(text)
     docs = sent_list.copy()
     n = len(docs)
 
@@ -105,9 +114,9 @@ def summary_nmf_method(text):
 
     for i in range(n):
         if (total_score[i] in top_list):
-            summary_final += '<p>' + sent_list[i] + '</p>'
+            summary_final += '<p style="color:#00ff00">' + sent_list[i] +'<br>'+str(total_score[i])+ '</p>'
         else:
-            summary_final += '<p style="color:#ff0000">' + sent_list[i] + '</p>'
+            summary_final += '<p style="color:#ff0000">' + sent_list[i] +'<br>'+str(total_score[i])+ '</p>'
 
     return summary_final
 

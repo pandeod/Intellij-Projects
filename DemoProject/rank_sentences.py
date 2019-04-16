@@ -10,7 +10,7 @@ def get_top_list(score):
     #         if score[j] < score[j+1] :
     #             score[j], score[j+1] = score[j+1], score[j]
 
-    x=np.sort(s)
+    x=np.sort(s)[::-1]
     top_list=list()
 
     for i in range(int(3*n/5)):

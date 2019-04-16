@@ -8,6 +8,8 @@ def get_surface_score(docs):
         p.append(1/(i+1))
 
     position_score=np.array(p)
+    # psMax=position_score.max()
+    # position_score=(100*position_score)/psMax
 
     s=list()
     for i in range(n):
@@ -27,6 +29,8 @@ def get_surface_score(docs):
             ls.append((sent_len[i]-avg_len)/avg_len)
 
     length_score=np.array(ls)
+    # lsMax=length_score.max()
+    # length_score=(100*length_score)/lsMax
 
     surface_score=position_score+length_score
     maxSurface=surface_score.max()
