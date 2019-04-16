@@ -14,6 +14,7 @@ import numpy as np
 import re
 import nltk
 from nltk.corpus import stopwords
+from nltk.tokenize import sent_tokenize
 import logging
 import json
 
@@ -64,8 +65,9 @@ def split_file_name(filename):
 def summary_nmf_method(text, sumLen):
     lemma = nltk.wordnet.WordNetLemmatizer()
 
-    sent_list = re.split('\.|\?|\!', text)
-    sent_list.pop()
+    # sent_list = re.split('\.|\?|\!', text)
+    sent_list=sent_tokenize(text)
+    #sent_list.pop()
     docs = sent_list.copy()
 
     n = len(docs)
@@ -111,7 +113,7 @@ def summary_nmf_method(text, sumLen):
 
         for i in range(n):
             if total_score[i] in top_list:
-                summary_final += sent_list[i] + '. '
+                summary_final += sent_list[i] + ' \n'
 
         return summary_final
     else:
