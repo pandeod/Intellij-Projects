@@ -13,7 +13,7 @@ def get_top_list(score):
     x=np.sort(s)[::-1]
     top_list=list()
 
-    for i in range(int(3*n/5)):
+    for i in range(n-1):
         top_list.append(x[i])
 
     return top_list

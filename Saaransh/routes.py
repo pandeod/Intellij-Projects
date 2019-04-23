@@ -113,7 +113,7 @@ def summary_nmf_method(text, sumLen):
 
         for i in range(n):
             if total_score[i] in top_list:
-                summary_final += sent_list[i] + ' \n'
+                summary_final += sent_list[i] + ' \n\n'
 
         return summary_final
     else:

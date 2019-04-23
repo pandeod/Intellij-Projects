@@ -10,9 +10,11 @@ import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import sent_tokenize
 from timeit import default_timer as timer
-
+import os
 import logging
 import numpy as np
+import openpyxl
+
 
 # nltk.download('stopwords')
 # nltk.download('wordnet')
@@ -22,15 +24,31 @@ app = Flask(__name__)
 
 @app.route('/')
 def root():
-    f = open('files/g.txt', 'r', encoding='utf-8', errors='ignore')
+    path=os.path.join('files/','s.txt')
+    f = open(path, 'r', encoding='utf-8', errors='ignore')
     text = f.read()
+    f.close()
 
     logging.warning('File Read Successfull')
     start=timer()
     summary = summary_nmf_method(text)
     t=timer()-start
+    n=summary[1]
+    new_row=list()
+    new_row.append(n)
+    new_row.append(t)
 
-    return 'Time Required : '+str(t)+' seconds '+ summary
+    path=os.path.join('results/','result.xlsx')
+    wb = openpyxl.load_workbook(filename=path)
+    ws = wb.get_sheet_by_name('Sheet1')
+    row = ws.max_row+ 1
+
+    for i in range(2):
+        ws.cell(row=row, column=i+1, value=new_row[i])
+
+    wb.save(path)
+
+    return 'Time Required : '+str(t)+' seconds '+ summary[0]
 
 
 def summary_nmf_method(text):
@@ -40,6 +58,13 @@ def summary_nmf_method(text):
     # sent_list.pop()
 
     sent_list=sent_tokenize(text)
+    i=len(sent_list)-1
+
+    while(i>=0):
+        if(len(sent_list[i].split())<3):
+            del sent_list[i]
+        i-=1
+
     docs = sent_list.copy()
     n = len(docs)
 
@@ -118,7 +143,10 @@ def summary_nmf_method(text):
         else:
             summary_final += '<p style="color:#ff0000">' + sent_list[i] +'<br>'+str(total_score[i])+ '</p>'
 
-    return summary_final
+    result=list()
+    result.append(summary_final);
+    result.append(n)
+    return result
 
 
 if __name__ == '__main__':
