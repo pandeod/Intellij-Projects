@@ -75,7 +75,7 @@ def summary_nmf_method(file_folder,sumLen):
 
     n = len(sent_list)
 
-    if(len(docs)>1):
+    if(n>1):
         k=app.config['k']
         GRS_sen = get_grs_score(file_folder,k)
         surface_score = get_surface_score(docs)
