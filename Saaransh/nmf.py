@@ -1,7 +1,8 @@
-from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.decomposition import NMF
 import pandas as pd
 import numpy as np
+from sklearn.externals import joblib
+import os
 
 def weight_H_i(i,H_col,summation_H,H):
     sum_H_col=0
@@ -16,11 +17,10 @@ def grs_sent_j(j,H_row,H_col,summation_H,H):
         sum_score+=H[i][j]*weight_H_i(i,H_col,summation_H,H)
     return sum_score
 
-def get_grs_score(docs):
-    vec = CountVectorizer()
-    X = vec.fit_transform(docs)
-    df = pd.DataFrame(X.toarray(), columns=vec.get_feature_names())
-    A_t=df.values
+def get_grs_score(file_folder):
+
+    A_TFIDF_path=os.path.join(file_folder,'A_TFIDF.pkl')
+    A_t=joblib.load(A_TFIDF_path)
     A=np.transpose(A_t)
 
     model = NMF(init='random',n_components=25, random_state=0)

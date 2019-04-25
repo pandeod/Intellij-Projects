@@ -18,6 +18,9 @@ from nltk.tokenize import sent_tokenize
 import logging
 import json
 
+from sklearn.externals import joblib
+
+
 from timeit import default_timer as timer
 
 
@@ -62,34 +65,18 @@ def split_file_name(filename):
     return jsonify(upload_file)
 
 
-def summary_nmf_method(text, sumLen):
-    lemma = nltk.wordnet.WordNetLemmatizer()
+def summary_nmf_method(file_folder,sumLen):
 
-    # sent_list = re.split('\.|\?|\!', text)
-    sent_list=sent_tokenize(text)
-    #sent_list.pop()
-    docs = sent_list.copy()
+    sent_path=os.path.join(file_folder,'sent_list.pkl')
+    sent_list=joblib.load(sent_path)
 
-    n = len(docs)
+    docs_path=os.path.join(file_folder,'docs_list.pkl')
+    docs=joblib.load(docs_path)
 
-    for i in range(n):
-        if (i == 0):
-            docs[i] = docs[i].replace(u'\ufeff', '')
-            sent_list[i] = sent_list[i].replace(u'\ufeff', '')
-        docs[i] = " ".join(docs[i].split()).lower()
-        sent_list[i] = " ".join(sent_list[i].split())
-
-    stop_words = set(stopwords.words('english'))
-
-    for i in range(n):
-        sentence = ''
-        for w in docs[i].split():
-            if w not in stop_words:
-                sentence += lemma.lemmatize(w) + ' '
-        docs[i] = sentence
+    n = len(sent_list)
 
     if(len(docs)>1):
-        GRS_sen = get_grs_score(docs)
+        GRS_sen = get_grs_score(file_folder)
         surface_score = get_surface_score(docs)
         # p=pagerank(docs)
 
@@ -113,7 +100,7 @@ def summary_nmf_method(text, sumLen):
 
         for i in range(n):
             if total_score[i] in top_list:
-                summary_final += sent_list[i] + ' \n\n'
+                summary_final += sent_list[i] + '\n'
 
         return summary_final
     else:
@@ -171,17 +158,12 @@ def requestsummary():
 
     logging.warning(sumLen)
 
-    file_folder = folder_str + 'out1.txt'
-    file_path = os.path.join(app.config['UPLOAD_FOLDER'], file_folder)
-    f = open(file_path, 'r', encoding='utf-8', errors='ignore')
-    content = f.read()
-    f.close()
-    sents = summary_nmf_method(content, sumLen)
+    file_folder = app.config['UPLOAD_FOLDER']+folder_str
+    sents = summary_nmf_method(file_folder, sumLen)
 
     t=timer()-start
 
     sents="Time required : "+str(t)+" seconds. \n"+sents
-
     req['summary'] = sents
     return jsonify(req)
 
@@ -208,7 +190,6 @@ def closesummary():
     req['response'] = 'success'
     req['status'] = '200'
     return jsonify(req)
-
 
 if __name__ == '__main__':
     app.run(port=5000, debug=True)
