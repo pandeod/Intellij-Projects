@@ -18,9 +18,8 @@ def grs_sent_j(j,H_row,H_col,summation_H,H):
         sum_score+=H[i][j]*weight_H_i(i,H_col,summation_H,H)
     return sum_score
 
-def get_grs_score(file_folder):
-    k=select_k_component(file_folder)
-
+def get_grs_score(file_folder,k):
+    #k=select_k_component(file_folder)
     A_TFIDF_path=os.path.join(file_folder,'A_TFIDF.pkl')
     (A_t,terms)=joblib.load(A_TFIDF_path)
     A=np.transpose(A_t)

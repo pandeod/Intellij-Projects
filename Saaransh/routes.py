@@ -76,7 +76,8 @@ def summary_nmf_method(file_folder,sumLen):
     n = len(sent_list)
 
     if(len(docs)>1):
-        GRS_sen = get_grs_score(file_folder)
+        k=app.config['k']
+        GRS_sen = get_grs_score(file_folder,k)
         surface_score = get_surface_score(docs)
         # p=pagerank(docs)
 
@@ -128,12 +129,14 @@ def upldfile():
 
         if os.path.exists(new_path):
             if (file_extension == '.txt'):
-                length = read_txt(directory, newfilename)
+                res = read_txt(directory, newfilename)
             elif (file_extension == '.pdf'):
-                length = read_pdf(directory, newfilename)
+                res = read_pdf(directory, newfilename)
             else:
-                length = read_docx(directory, newfilename)
+                res = read_docx(directory, newfilename)
 
+            length=res[0]
+            app.config['k']=res[1]
             data['result'] = file_folder
             data['length'] = length
             data['status'] = '200'

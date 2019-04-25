@@ -6,6 +6,7 @@ import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import sent_tokenize
 from sklearn.feature_extraction.text import TfidfVectorizer
+from parameter_selection_nmf import select_k_component
 
 def read_txt(file_folder, filename):
     path=os.path.join(file_folder,filename)
@@ -80,4 +81,6 @@ def save_pkl(file_folder,text):
     A_TFIDF_path=os.path.join(file_folder,'A_TFIDF.pkl')
     joblib.dump((A,terms),A_TFIDF_path)
 
-    return n
+    k=select_k_component(file_folder)
+
+    return [n,k]

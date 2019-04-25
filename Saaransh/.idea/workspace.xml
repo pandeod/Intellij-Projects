@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="594598aa-530c-4f80-8a99-3298dba2322c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/parameter_selection_nmf.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../DemoProject/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../DemoProject/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../DemoProject/files/a.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../DemoProject/files/a.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../DemoProject/files/b.txt" beforeDir="false" />
@@ -14,9 +13,12 @@
       <change beforePath="$PROJECT_DIR$/../DemoProject/files/s.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../DemoProject/nmf.py" beforeDir="false" afterPath="$PROJECT_DIR$/../DemoProject/nmf.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../DemoProject/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/../DemoProject/routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nmf.py" beforeDir="false" afterPath="$PROJECT_DIR$/nmf.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/read_files.py" beforeDir="false" afterPath="$PROJECT_DIR$/read_files.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/routes.py" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -36,8 +38,23 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-85">
-              <caret line="17" column="14" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="14" />
+            <state relative-caret-position="341">
+              <caret line="79" column="43" selection-start-line="79" selection-end-line="80" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/textrank.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="36">
+              <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -45,8 +62,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/read_files.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="71" selection-start-line="71" selection-end-line="71" />
+            <state relative-caret-position="191">
+              <caret line="82" selection-start-line="82" selection-end-line="82" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -57,8 +74,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/nmf.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="16" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
+            <state relative-caret-position="276">
+              <caret line="28" column="25" selection-start-line="28" selection-start-column="25" selection-end-line="28" selection-end-column="25" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -66,11 +83,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/parameter_selection_nmf.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="194">
-              <caret line="66" lean-forward="true" selection-start-line="66" selection-end-line="66" />
+            <state relative-caret-position="850">
+              <caret line="50" selection-start-line="50" selection-end-line="50" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -119,10 +136,10 @@
         <option value="$PROJECT_DIR$/templates/contact.html" />
         <option value="$PROJECT_DIR$/templates/index.html" />
         <option value="$PROJECT_DIR$/rank_sentences.py" />
-        <option value="$PROJECT_DIR$/routes.py" />
+        <option value="$PROJECT_DIR$/parameter_selection_nmf.py" />
         <option value="$PROJECT_DIR$/read_files.py" />
         <option value="$PROJECT_DIR$/nmf.py" />
-        <option value="$PROJECT_DIR$/parameter_selection_nmf.py" />
+        <option value="$PROJECT_DIR$/routes.py" />
       </list>
     </option>
   </component>
@@ -152,6 +169,17 @@
             <path>
               <item name="Saaransh" type="b2602c69:ProjectViewProjectNode" />
               <item name="Saaransh" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Saaransh" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Saaransh" type="462c0819:PsiDirectoryNode" />
+              <item name="upload" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Saaransh" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Saaransh" type="462c0819:PsiDirectoryNode" />
+              <item name="upload" type="462c0819:PsiDirectoryNode" />
+              <item name="files" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Saaransh" type="b2602c69:ProjectViewProjectNode" />
@@ -279,7 +307,7 @@
       <workItem from="1555838454614" duration="7047000" />
       <workItem from="1556047320729" duration="746000" />
       <workItem from="1556116622711" duration="2270000" />
-      <workItem from="1556213298428" duration="9641000" />
+      <workItem from="1556213298428" duration="11365000" />
     </task>
     <task id="LOCAL-00001" summary="file creation added">
       <created>1549905167944</created>
@@ -379,11 +407,18 @@
       <option name="project" value="LOCAL" />
       <updated>1556222079997</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="version 2.1.0&#10;parameter selection added">
+      <created>1556224991554</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1556224991554</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="157020000" />
+    <option name="totallyTimeSpent" value="158744000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -398,14 +433,14 @@
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2677761" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2677761" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="UI Designer" order="3" />
       <window_info id="Favorites" order="4" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3289689" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49848714" visible="true" weight="0.33060557" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49848714" weight="0.33060557" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -484,7 +519,8 @@
     <MESSAGE value="version 1.0.3&#10;sent_tokenize added" />
     <MESSAGE value="version 1.0.4&#10;array sorted correctly" />
     <MESSAGE value="version 2.0.0&#10;pkl files generator added" />
-    <option name="LAST_COMMIT_MESSAGE" value="version 2.0.0&#10;pkl files generator added" />
+    <MESSAGE value="version 2.1.0&#10;parameter selection added" />
+    <option name="LAST_COMMIT_MESSAGE" value="version 2.1.0&#10;parameter selection added" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand>
@@ -562,16 +598,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
           <caret line="12" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/textrank.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="22" selection-start-line="16" selection-start-column="22" selection-end-line="16" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -689,17 +715,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes.py">
+    <entry file="file://$PROJECT_DIR$/parameter_selection_nmf.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-85">
-          <caret line="17" column="14" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="14" />
+        <state relative-caret-position="850">
+          <caret line="50" selection-start-line="50" selection-end-line="50" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/read_files.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="71" selection-start-line="71" selection-end-line="71" />
+        <state relative-caret-position="191">
+          <caret line="82" selection-start-line="82" selection-end-line="82" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
@@ -708,20 +737,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/nmf.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="16" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
+        <state relative-caret-position="276">
+          <caret line="28" column="25" selection-start-line="28" selection-start-column="25" selection-end-line="28" selection-end-column="25" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/parameter_selection_nmf.py">
+    <entry file="file://$PROJECT_DIR$/routes.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="66" lean-forward="true" selection-start-line="66" selection-end-line="66" />
+        <state relative-caret-position="341">
+          <caret line="79" column="43" selection-start-line="79" selection-end-line="80" />
           <folding>
-            <element signature="e#0#37#0" expanded="true" />
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/textrank.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
