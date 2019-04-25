@@ -75,8 +75,9 @@ def save_pkl(file_folder,text):
 
     vectorizer = TfidfVectorizer()
     A = vectorizer.fit_transform(docs)
+    terms = vectorizer.get_feature_names()
 
     A_TFIDF_path=os.path.join(file_folder,'A_TFIDF.pkl')
-    joblib.dump(A,A_TFIDF_path)
+    joblib.dump((A,terms),A_TFIDF_path)
 
     return n

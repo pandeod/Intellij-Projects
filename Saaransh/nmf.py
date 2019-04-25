@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 from sklearn.externals import joblib
 import os
+from parameter_selection_nmf import select_k_component
 
 def weight_H_i(i,H_col,summation_H,H):
     sum_H_col=0
@@ -18,12 +19,13 @@ def grs_sent_j(j,H_row,H_col,summation_H,H):
     return sum_score
 
 def get_grs_score(file_folder):
+    k=select_k_component(file_folder)
 
     A_TFIDF_path=os.path.join(file_folder,'A_TFIDF.pkl')
-    A_t=joblib.load(A_TFIDF_path)
+    (A_t,terms)=joblib.load(A_TFIDF_path)
     A=np.transpose(A_t)
 
-    model = NMF(init='random',n_components=25, random_state=0)
+    model = NMF(init='random',n_components=k, random_state=0)
     W = model.fit_transform(A)
     H = model.components_
 
