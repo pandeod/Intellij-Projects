@@ -61,8 +61,10 @@ def save_pkl(file_folder,text):
     lemma = nltk.wordnet.WordNetLemmatizer()
 
     docs = sent_list.copy()
+
     for i in range(n):
         sentence = ''
+        docs[i]=docs[i].lower()
         for w in docs[i].split():
             if w not in stop_words:
                 sentence += lemma.lemmatize(w) + ' '
@@ -82,7 +84,10 @@ def save_pkl(file_folder,text):
         A_TFIDF_path=os.path.join(file_folder,'A_TFIDF.pkl')
         joblib.dump((A,terms),A_TFIDF_path)
 
-        k=select_k_component(file_folder)
+        if(len(terms)>9):
+            k=select_k_component(file_folder)
+        else:
+            k=2
 
         return [n,k]
     else:

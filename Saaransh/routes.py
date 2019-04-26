@@ -4,7 +4,7 @@ import shutil
 import string
 from flask import Flask, render_template, request, jsonify, send_file
 from werkzeug.utils import secure_filename
-from read_files import read_txt, read_docx, read_pdf
+from read_files import read_txt, read_docx, read_pdf, save_pkl
 from textrank import pagerank, sentence_similarity, build_similarity_matrix
 from surface_feature import get_surface_score
 from nmf import get_grs_score
@@ -169,6 +169,36 @@ def requestsummary():
     sents="Time required : "+str(t)+" seconds. \n"+sents
     req['summary'] = sents
     return jsonify(req)
+
+@app.route('/requestsummarybybox', methods=['POST'])
+def requestsummarybybox():
+    start=timer()
+    req = dict()
+    input_text = request.json['input_text']
+    sumLen = request.json['sumLen']
+
+    logging.warning(sumLen)
+
+    file_folder = random_generator() + '/'
+    new_file_path = os.path.join(app.config['UPLOAD_FOLDER'], file_folder)
+    directory = os.path.dirname(new_file_path)
+
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
+    print(directory)
+
+    res=save_pkl(directory,input_text)
+    length=res[0]
+    app.config['k']=res[1]
+    sents = summary_nmf_method(directory, sumLen)
+
+    t=timer()-start
+
+    sents="Time required : "+str(t)+" seconds. \n"+sents
+    req['summary'] = sents
+    return jsonify(req)
+
 
 
 @app.route('/getfile', methods=['POST'])

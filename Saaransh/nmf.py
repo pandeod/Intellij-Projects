@@ -24,7 +24,7 @@ def get_grs_score(file_folder,k):
     (A_t,terms)=joblib.load(A_TFIDF_path)
     A=np.transpose(A_t)
 
-    model = NMF(init='random',n_components=k, random_state=0)
+    model = NMF(init='nndsvd',n_components=k, random_state=0)
     W = model.fit_transform(A)
     H = model.components_
 
