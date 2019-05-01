@@ -18,10 +18,18 @@ def grs_sent_j(j,H_row,H_col,summation_H,H):
         sum_score+=H[i][j]*weight_H_i(i,H_col,summation_H,H)
     return sum_score
 
-def get_grs_score(file_folder,k):
-    #k=select_k_component(file_folder)
+def get_grs_score(file_folder):
+
     A_TFIDF_path=os.path.join(file_folder,'A_TFIDF.pkl')
-    (A_t,terms)=joblib.load(A_TFIDF_path)
+    (A_t,terms,docs_len)=joblib.load(A_TFIDF_path)
+
+    if(len(terms)>9 and docs_len>=15):
+        k=select_k_component(file_folder,15)
+    elif(len(terms)>9 and docs_len<15):
+        k=select_k_component(file_folder,docs_len)
+    else:
+        k=2
+
     A=np.transpose(A_t)
 
     model = NMF(init='nndsvd',n_components=k, random_state=0)

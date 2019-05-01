@@ -87,7 +87,7 @@ $(document).ready(function(e){
     //modal text display
     $("#summarize_btn").click(function(){
         var filename=localStorage['uploadedFileName'];
-        $("#summaryBox").text("Loading your summary ...........-------");
+        $("#summaryBox").text("Loading your summary ...........");
         var length=$('#inputLength').val();
         if(length == null)
             length=1;
@@ -306,7 +306,7 @@ $(document).ready(function(e){
         });
 
         // Specify link url
-        var url = 'data:application/pdf,' + encodeURIComponent(html);
+        var url = 'data:application/pdf;charset=utf-8,' + encodeURIComponent(html);
 
         // Specify file name
         filename = 'summary.pdf';

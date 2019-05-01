@@ -76,19 +76,13 @@ def save_pkl(file_folder,text):
     docs_path=os.path.join(file_folder,'docs_list.pkl')
     joblib.dump(docs,docs_path)
 
-    if(len(docs)>1):
+    docs_len=len(docs)
+    if(docs_len>1):
         vectorizer = TfidfVectorizer()
         A = vectorizer.fit_transform(docs)
         terms = vectorizer.get_feature_names()
 
         A_TFIDF_path=os.path.join(file_folder,'A_TFIDF.pkl')
-        joblib.dump((A,terms),A_TFIDF_path)
+        joblib.dump((A,terms,docs_len),A_TFIDF_path)
 
-        if(len(terms)>9):
-            k=select_k_component(file_folder)
-        else:
-            k=2
-
-        return [n,k]
-    else:
-        return [n,1]
+    return n

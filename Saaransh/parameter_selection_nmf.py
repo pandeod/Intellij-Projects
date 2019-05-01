@@ -32,11 +32,11 @@ def calculate_coherence( w2v_model, term_rankings ):
     # get the mean score across all topics
     return overall_coherence / len(term_rankings)
 
-def select_k_component(file_folder):
-    kmin, kmax = 4, 15
+def select_k_component(file_folder,kmax):
+    kmin= 2
 
     A_TFIDF_path=os.path.join(file_folder,'A_TFIDF.pkl')
-    (A,terms)=joblib.load(A_TFIDF_path)
+    (A,terms,docs_len)=joblib.load(A_TFIDF_path)
 
     topic_models = []
     # try each value of k
@@ -63,7 +63,9 @@ def select_k_component(file_folder):
         coherences.append( calculate_coherence( w2v_model, term_rankings ) )
         print("K=%02d: Coherence=%.4f" % ( k, coherences[-1] ) )
 
-    return k_values[coherences.index(max(coherences))]
+    selected_k=k_values[coherences.index(max(coherences))]
+    print("Selected K=%02d: "% selected_k)
+    return selected_k
 
 
 

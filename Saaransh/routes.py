@@ -76,8 +76,7 @@ def summary_nmf_method(file_folder,sumLen):
     n = len(sent_list)
 
     if(n>1):
-        k=app.config['k']
-        GRS_sen = get_grs_score(file_folder,k)
+        GRS_sen = get_grs_score(file_folder)
         surface_score = get_surface_score(docs)
         # p=pagerank(docs)
 
@@ -87,6 +86,8 @@ def summary_nmf_method(file_folder,sumLen):
         lxr_score = np.array(lx)
         maxLex = lxr_score.max()
         lxr_score = (100 * lxr_score) / maxLex
+
+        print(lxr_score)
 
         total_score = []
 
@@ -135,8 +136,7 @@ def upldfile():
             else:
                 res = read_docx(directory, newfilename)
 
-            length=res[0]
-            app.config['k']=res[1]
+            length=res
             data['result'] = file_folder
             data['length'] = length
             data['status'] = '200'
@@ -189,13 +189,12 @@ def requestsummarybybox():
     print(directory)
 
     res=save_pkl(directory,input_text)
-    length=res[0]
-    app.config['k']=res[1]
+    length=res
     sents = summary_nmf_method(directory, sumLen)
 
     t=timer()-start
 
-    sents="Time required : "+str(t)+" seconds. \n"+sents
+    sents="Time required : "+str(t)+" seconds. \nTotal Sentences : "+str(length)+"\n"+sents
     req['summary'] = sents
     return jsonify(req)
 
