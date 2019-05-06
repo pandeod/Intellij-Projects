@@ -87,8 +87,6 @@ def summary_nmf_method(file_folder,sumLen):
         maxLex = lxr_score.max()
         lxr_score = (100 * lxr_score) / maxLex
 
-        print(lxr_score)
-
         total_score = []
 
         for i in range(n):
@@ -105,8 +103,10 @@ def summary_nmf_method(file_folder,sumLen):
                 summary_final += sent_list[i] + '\n'
 
         return summary_final
+    elif(n==1):
+        return sent_list[0]
     else:
-        return 'No meaningful sentence found'
+        return 'No adequate sentences found for summary.'
 
 
 @app.route('/uploadajax', methods=['POST'])
