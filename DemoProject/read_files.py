@@ -1,23 +1,20 @@
 import os
 import PyPDF2
 import docx2txt
-from werkzeug.utils import secure_filename
+from sklearn.externals import joblib
+import nltk
+from nltk.corpus import stopwords
+from nltk.tokenize import sent_tokenize
+from sklearn.feature_extraction.text import TfidfVectorizer
+from parameter_selection_nmf import select_k_component
 
-
-def read_txt(file_folder, filename):
-    path=os.path.join(file_folder,filename)
-    f=open(path,'r')
+def read_txt(path):
+    f=open(path,'r',encoding='utf-8',errors='ignore')
     res=f.read()
     f.close()
-    extracted_file_name=secure_filename('out1.txt')
-    extracted_file_path=os.path.join(file_folder,extracted_file_name)
-    exf=open(extracted_file_path,'w+')
-    exf.write(res)
-    exf.close()
-    return res
+    return save_pkl(res)
 
-def read_pdf(file_folder, filename):
-    path=os.path.join(file_folder,filename)
+def read_pdf(path):
     pdfFileObj=open(path,'rb')
     pdfReader=PyPDF2.PdfFileReader(pdfFileObj)
     num_pages=pdfReader.numPages
@@ -26,32 +23,56 @@ def read_pdf(file_folder, filename):
     while count<num_pages :
         pageObj=pdfReader.getPage(count)
         count+=1
-        text+=pageObj.extractText()
+        text+=" "+pageObj.extractText()
     pdfFileObj.close()
+    return save_pkl(text)
 
-    extracted_file_name=secure_filename('out1.txt')
-    extracted_file_path=os.path.join(file_folder,extracted_file_name)
-    exf=open(extracted_file_path,'w+')
-    exf.write(text)
-    exf.close()
-    return text
-
-def read_doc(file_folder, filename):
-    # path=os.path.join(file_folder,filename)
-    # res=docx2txt.process(path)
-    # extracted_file_name=secure_filename('out1.txt')
-    # extracted_file_path=os.path.join(file_folder,extracted_file_name)
-    # exf=open(extracted_file_path,'w+')
-    # exf.write(res)
-    # exf.close()
-    return True
-
-def read_docx(file_folder, filename):
-    path=os.path.join(file_folder,filename)
+def read_docx(path):
     res=docx2txt.process(path)
-    extracted_file_name=secure_filename('out1.txt')
-    extracted_file_path=os.path.join(file_folder,extracted_file_name)
-    exf=open(extracted_file_path,'w+')
-    exf.write(res)
-    exf.close()
-    return res
+    return save_pkl(res)
+
+def save_pkl(text):
+    sent_list=sent_tokenize(text)
+    i=len(sent_list)-1
+
+    while(i>=0):
+        if(len(sent_list[i].split())<3):
+            del sent_list[i]
+        i-=1
+
+    n = len(sent_list)
+
+    for i in range(n):
+        if (i == 0):
+            sent_list[i] = sent_list[i].replace(u'\ufeff', '')
+        sent_list[i] = " ".join(sent_list[i].split())
+
+    stop_words = set(stopwords.words('english'))
+    lemma = nltk.wordnet.WordNetLemmatizer()
+
+    docs = sent_list.copy()
+
+    for i in range(n):
+        sentence = ''
+        docs[i]=docs[i].lower()
+        for w in docs[i].split():
+            if w not in stop_words:
+                sentence += lemma.lemmatize(w) + ' '
+        docs[i] = sentence
+
+    sent_path=os.path.join('./upload/files/','sent_list.pkl')
+    joblib.dump(sent_list,sent_path)
+
+    docs_path=os.path.join('./upload/files/','docs_list.pkl')
+    joblib.dump(docs,docs_path)
+
+    docs_len=len(docs)
+    if(docs_len>1):
+        vectorizer = TfidfVectorizer()
+        A = vectorizer.fit_transform(docs)
+        terms = vectorizer.get_feature_names()
+
+        A_TFIDF_path=os.path.join('./upload/files/','A_TFIDF.pkl')
+        joblib.dump((A,terms,docs_len),A_TFIDF_path)
+
+    return n

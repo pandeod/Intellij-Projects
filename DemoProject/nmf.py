@@ -1,7 +1,9 @@
-from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.decomposition import NMF
 import pandas as pd
 import numpy as np
+from sklearn.externals import joblib
+import os
+from parameter_selection_nmf import select_k_component
 
 def weight_H_i(i,H_col,summation_H,H):
     sum_H_col=0
@@ -16,14 +18,21 @@ def grs_sent_j(j,H_row,H_col,summation_H,H):
         sum_score+=H[i][j]*weight_H_i(i,H_col,summation_H,H)
     return sum_score
 
-def get_grs_score(docs):
-    vec = CountVectorizer()
-    X = vec.fit_transform(docs)
-    df = pd.DataFrame(X.toarray(), columns=vec.get_feature_names())
-    A_t=df.values
+def get_grs_score(file_folder):
+
+    A_TFIDF_path=os.path.join(file_folder,'A_TFIDF.pkl')
+    (A_t,terms,docs_len)=joblib.load(A_TFIDF_path)
+
+    if(len(terms)>9 and docs_len>=15):
+        k=select_k_component(file_folder,15)
+    elif(len(terms)>9 and docs_len<15):
+        k=select_k_component(file_folder,docs_len)
+    else:
+        k=2
+
     A=np.transpose(A_t)
 
-    model = NMF(init='random',n_components=25, random_state=0)
+    model = NMF(init='nndsvd',n_components=k, random_state=0)
     W = model.fit_transform(A)
     H = model.components_
 
@@ -43,5 +52,7 @@ def get_grs_score(docs):
     GRS_sen=np.array(g)
     maxGRS=GRS_sen.max()
     GRS_sen=(100*GRS_sen)/maxGRS
+
+    os.remove(A_TFIDF_path)
 
     return GRS_sen
