@@ -100,7 +100,7 @@ def summary_nmf_method(file_folder,sumLen):
 
         for i in range(n):
             if total_score[i] in top_list:
-                summary_final += sent_list[i] + '\n'
+                summary_final += sent_list[i] + ' \n '
 
         return summary_final
     elif(n==1):

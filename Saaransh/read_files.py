@@ -14,7 +14,6 @@ def read_txt(file_folder, filename):
     res=f.read()
     f.close()
     os.remove(path)
-
     return save_pkl(file_folder,res)
 
 def read_pdf(file_folder, filename):
@@ -27,7 +26,7 @@ def read_pdf(file_folder, filename):
     while count<num_pages :
         pageObj=pdfReader.getPage(count)
         count+=1
-        text+=pageObj.extractText()
+        text+=" "+pageObj.extractText()
     pdfFileObj.close()
     os.remove(path)
 

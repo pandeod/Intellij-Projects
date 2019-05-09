@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="594598aa-530c-4f80-8a99-3298dba2322c" name="Default Changelist" comment="version 2.2.1&#10;parameter selection added after uploading">
+      <change afterPath="$PROJECT_DIR$/../DemoProject/files/medium.docx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DemoProject/files/medium.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DemoProject/files/medium.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../DemoProject/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../DemoProject/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../DemoProject/files/a.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../DemoProject/files/a.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../DemoProject/files/b.txt" beforeDir="false" />
@@ -12,9 +15,15 @@
       <change beforePath="$PROJECT_DIR$/../DemoProject/files/r.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../DemoProject/files/s.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../DemoProject/nmf.py" beforeDir="false" afterPath="$PROJECT_DIR$/../DemoProject/nmf.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DemoProject/rank_sentences.py" beforeDir="false" afterPath="$PROJECT_DIR$/../DemoProject/rank_sentences.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DemoProject/read_files.py" beforeDir="false" afterPath="$PROJECT_DIR$/../DemoProject/read_files.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../DemoProject/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/../DemoProject/routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DemoProject/surface_feature.py" beforeDir="false" afterPath="$PROJECT_DIR$/../DemoProject/surface_feature.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DemoProject/textrank.py" beforeDir="false" afterPath="$PROJECT_DIR$/../DemoProject/textrank.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/read_files.py" beforeDir="false" afterPath="$PROJECT_DIR$/read_files.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/javascript/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/javascript/main.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -34,11 +43,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
-              <caret line="223" column="23" lean-forward="true" selection-start-line="223" selection-start-column="23" selection-end-line="223" selection-end-column="23" />
-              <folding>
-                <element signature="e#0#9#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="221">
+              <caret line="13" column="9" lean-forward="true" selection-start-line="13" selection-start-column="9" selection-end-line="13" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -46,8 +52,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/javascript/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="328">
-              <caret line="102" column="60" selection-start-line="102" selection-start-column="60" selection-end-line="102" selection-end-column="60" />
+            <state relative-caret-position="5797">
+              <caret line="341" column="11" selection-start-line="341" selection-start-column="11" selection-end-line="341" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -55,8 +61,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/read_files.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="59" lean-forward="true" selection-start-line="7" selection-start-column="59" selection-end-line="7" selection-end-column="59" />
+            <state relative-caret-position="170">
+              <caret line="16" column="31" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -103,10 +112,10 @@
         <option value="$PROJECT_DIR$/templates/index.html" />
         <option value="$PROJECT_DIR$/surface_feature.py" />
         <option value="$PROJECT_DIR$/parameter_selection_nmf.py" />
-        <option value="$PROJECT_DIR$/static/javascript/main.js" />
         <option value="$PROJECT_DIR$/nmf.py" />
-        <option value="$PROJECT_DIR$/read_files.py" />
         <option value="$PROJECT_DIR$/routes.py" />
+        <option value="$PROJECT_DIR$/static/javascript/main.js" />
+        <option value="$PROJECT_DIR$/read_files.py" />
       </list>
     </option>
   </component>
@@ -130,6 +139,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -146,7 +156,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -272,7 +281,10 @@
       <workItem from="1556731743407" duration="7797000" />
       <workItem from="1556862569602" duration="4639000" />
       <workItem from="1556871781885" duration="3665000" />
-      <workItem from="1557123011752" duration="3632000" />
+      <workItem from="1557123011752" duration="4303000" />
+      <workItem from="1557250605415" duration="523000" />
+      <workItem from="1557408657735" duration="4664000" />
+      <workItem from="1557423527024" duration="781000" />
     </task>
     <task id="LOCAL-00001" summary="file creation added">
       <created>1549905167944</created>
@@ -407,11 +419,18 @@
       <option name="project" value="LOCAL" />
       <updated>1556740337888</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="version 2.2.2&#10;error handled for few sentences">
+      <created>1557163114271</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1557163114271</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="198130000" />
+    <option name="totallyTimeSpent" value="204769000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -426,14 +445,14 @@
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.30711043" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.3207262" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="UI Designer" order="3" />
       <window_info id="Favorites" order="4" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3289689" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49848714" visible="true" weight="0.30278233" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49848714" weight="0.30278233" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -545,7 +564,8 @@
     <MESSAGE value="version 2.1.2&#10;single sentence input error removed" />
     <MESSAGE value="version 2.2.0&#10;input from textarea added" />
     <MESSAGE value="version 2.2.1&#10;parameter selection added after uploading" />
-    <option name="LAST_COMMIT_MESSAGE" value="version 2.2.1&#10;parameter selection added after uploading" />
+    <MESSAGE value="version 2.2.2&#10;error handled for few sentences" />
+    <option name="LAST_COMMIT_MESSAGE" value="version 2.2.2&#10;error handled for few sentences" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand>
@@ -557,7 +577,7 @@
     <select />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Saaransh$routes.coverage" NAME="routes Coverage Results" MODIFIED="1557126552494" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Saaransh$routes.coverage" NAME="routes Coverage Results" MODIFIED="1557409840364" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/static/javascript/bootstrap/3.3.7/js/bootstrap.min.js">
@@ -776,27 +796,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/read_files.py">
+    <entry file="file://$PROJECT_DIR$/static/javascript/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="59" lean-forward="true" selection-start-line="7" selection-start-column="59" selection-end-line="7" selection-end-column="59" />
+        <state relative-caret-position="5797">
+          <caret line="341" column="11" selection-start-line="341" selection-start-column="11" selection-end-line="341" selection-end-column="11" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/javascript/main.js">
+    <entry file="file://$PROJECT_DIR$/read_files.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="328">
-          <caret line="102" column="60" selection-start-line="102" selection-start-column="60" selection-end-line="102" selection-end-column="60" />
+        <state relative-caret-position="170">
+          <caret line="16" column="31" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="223" column="23" lean-forward="true" selection-start-line="223" selection-start-column="23" selection-end-line="223" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="221">
+          <caret line="13" column="9" lean-forward="true" selection-start-line="13" selection-start-column="9" selection-end-line="13" selection-end-column="9" />
         </state>
       </provider>
     </entry>

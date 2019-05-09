@@ -334,7 +334,8 @@ $(document).ready(function(e){
     function Export2Doc(text){
         var preHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Summary</title></head><body>";
         var postHtml = "</body></html>";
-        var html = preHtml+text+postHtml;
+        var content = text.replace("\n","<br><br>")
+        var html = preHtml+content+postHtml;
 
         var blob = new Blob(['\ufeff', html], {
             type: 'application/msword'
