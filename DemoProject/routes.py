@@ -20,7 +20,6 @@ import json
 
 from sklearn.externals import joblib
 
-
 from timeit import default_timer as timer
 
 
@@ -36,7 +35,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 @app.route('/')
 def root():
     f_dir='files/'
-    f_input='medium.pdf'
+    f_input='a.txt'
     sumLen=10
     fname, file_extension = os.path.splitext(f_input)
     file_folder = './upload/files/'
@@ -135,4 +134,4 @@ def summary_nmf_method(file_folder,sumLen):
         return 'No adequate sentences found for summary.'
 
 if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+    app.run(port=8000, debug=True)
